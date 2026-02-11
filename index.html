@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edibles Dosage Calculator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        .calculator-container {
+            background: linear-gradient(135deg, #1B3A2F 0%, #2d5a48 100%);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .calculator-title {
+            color: white;
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            font-size: 22px;
+        }
+        
+        .calculator-subtitle {
+            color: rgba(255,255,255,0.9);
+            margin: 0 0 20px 0;
+            font-size: 14px;
+        }
+        
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .experience-button {
+            background: white;
+            color: #1B3A2F;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .experience-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .amount-result {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 20px;
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+        
+        .amount-result.show {
+            display: block;
+        }
+        
+        .result-label {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            color: white;
+        }
+        
+        .amount-text {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            color: #C8A882;
+        }
+        
+        .tip-text {
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .calculator-container {
+                padding: 20px !important;
+            }
+            .experience-button {
+                font-size: 15px !important;
+                padding: 14px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h3 class="calculator-title">Find Your Starting Amount</h3>
+        <p class="calculator-subtitle">Select your experience level:</p>
+        
+        <div class="button-container">
+            <button class="experience-button" onclick="showAmount('beginner')">
+                First-Timer or New to Edibles
+            </button>
+            
+            <button class="experience-button" onclick="showAmount('moderate')">
+                Some Experience with Edibles
+            </button>
+            
+            <button class="experience-button" onclick="showAmount('experienced')">
+                Regular Edibles User
+            </button>
+        </div>
+        
+        <div id="amountResult" class="amount-result">
+            <div>
+                <p class="result-label">Your Recommended Starting Amount:</p>
+                <p id="amountText" class="amount-text"></p>
+                <p id="tipText" class="tip-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showAmount(level) {
+            const result = document.getElementById('amountResult');
+            const amountText = document.getElementById('amountText');
+            const tipText = document.getElementById('tipText');
+            
+            const amounts = {
+                beginner: {
+                    amount: '2.5-5mg',
+                    tip: 'Start with ¼ to ½ of a standard 10mg gummy. Wait at least 90-120 minutes before considering more. Remember: you can always take more, but you can\'t take less.'
+                },
+                moderate: {
+                    amount: '5-10mg',
+                    tip: 'One standard gummy or half of a stronger product works well. Wait 2 hours before taking more to assess full effects.'
+                },
+                experienced: {
+                    amount: '10-15mg+',
+                    tip: 'Full gummies or potent formulations match your tolerance. Still practice the "start low, go slow" principle with new products.'
+                }
+            };
+            
+            const selected = amounts[level];
+            amountText.textContent = selected.amount;
+            tipText.textContent = selected.tip;
+            
+            result.classList.add('show');
+            result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
